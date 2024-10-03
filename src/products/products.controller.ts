@@ -25,18 +25,23 @@ export class ProductsController {
   // @Get(':id')
   @MessagePattern({ cmd: 'get_one_product' })
   findOne(@Payload('id', ParseIntPipe) id: number) {
-    return this.productsService.findOne(+id);
+    return this.productsService.findOne(id);
   }
 
   // @Patch(':id')
   @MessagePattern({ cmd: 'update_product' })
   update( @Payload() updateProductDto: UpdateProductDto) {
     return this.productsService.update(updateProductDto.id, updateProductDto);
-  }
+  } 
 
   // @Delete(':id')
   @MessagePattern({ cmd: 'delete_product' })
   remove(@Payload('id', ParseIntPipe) id: number) {
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
+  }
+
+  @MessagePattern({ cmd: 'validate_products' })
+  validateProducts(@Payload() ids: number[]){
+    return this.productsService.validateProducts(ids)
   }
 }
